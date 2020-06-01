@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import { View, Text, StyleSheet, FlatList, Button } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Button, TouchableOpacity } from 'react-native'
 import { Context } from '../context/BlogContext'
 import { FontAwesome } from '@expo/vector-icons'
 
 const IndexScreen = () => {
-  const { state, addBlogPost } = useContext(Context)
+  const { state, addBlogPost, deleteBlogPost } = useContext(Context)
   return (
     <View>
       <Button title="Add Post" onPress={addBlogPost} />
@@ -14,7 +14,9 @@ const IndexScreen = () => {
         renderItem={({ item }) => {
           return <View style={styles.row}>
             <Text style={styles.title}>{item.title}</Text>
-            <FontAwesome style={styles.icon} name="trash" />
+            <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+              <FontAwesome style={styles.icon} name="trash" />
+            </TouchableOpacity>
           </View>
         }}
       />
